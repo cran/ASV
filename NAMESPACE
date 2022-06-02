@@ -1,0 +1,4 @@
+useDynLib(ASV, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+import(freqdom)
+exportPattern("^[[:alpha:]]+")
