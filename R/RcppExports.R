@@ -5,8 +5,32 @@ sv_mcmc <- function(return_vector, nSim = NULL, nBurn = NULL, vHyper = NULL) {
     .Call(`_ASV_sv_mcmc`, return_vector, nSim, nBurn, vHyper)
 }
 
+sv_posterior <- function(H, Theta, Theta_star, Y, iM = NULL, vHyper = NULL) {
+    .Call(`_ASV_sv_posterior`, H, Theta, Theta_star, Y, iM, vHyper)
+}
+
+sv_prior <- function(Theta_star, vHyper = NULL) {
+    .Call(`_ASV_sv_prior`, Theta_star, vHyper)
+}
+
+sv_logML <- function(H, Theta, Theta_star, Y, iI = NULL, iM = NULL, vHyper = NULL) {
+    .Call(`_ASV_sv_logML`, H, Theta, Theta_star, Y, iI, iM, vHyper)
+}
+
 asv_mcmc <- function(return_vector, nSim = NULL, nBurn = NULL, vHyper = NULL) {
     .Call(`_ASV_asv_mcmc`, return_vector, nSim, nBurn, vHyper)
+}
+
+asv_posterior <- function(H, Theta, Theta_star, Y, iM = NULL, vHyper = NULL) {
+    .Call(`_ASV_asv_posterior`, H, Theta, Theta_star, Y, iM, vHyper)
+}
+
+asv_prior <- function(Theta_star, vHyper = NULL) {
+    .Call(`_ASV_asv_prior`, Theta_star, vHyper)
+}
+
+asv_logML <- function(H, Theta, Theta_star, Y, iI = NULL, iM = NULL, vHyper = NULL) {
+    .Call(`_ASV_asv_logML`, H, Theta, Theta_star, Y, iI, iM, vHyper)
 }
 
 sv_pf <- function(mu, phi, sigma_eta, Y, I) {

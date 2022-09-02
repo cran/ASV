@@ -25,6 +25,51 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sv_posterior
+arma::vec sv_posterior(arma::vec H, arma::vec Theta, arma::vec Theta_star, arma::vec Y, Rcpp::Nullable<int> iM, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_sv_posterior(SEXP HSEXP, SEXP ThetaSEXP, SEXP Theta_starSEXP, SEXP YSEXP, SEXP iMSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type H(HSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta(ThetaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iM(iMSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(sv_posterior(H, Theta, Theta_star, Y, iM, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sv_prior
+double sv_prior(arma::vec Theta_star, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_sv_prior(SEXP Theta_starSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(sv_prior(Theta_star, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sv_logML
+Rcpp::List sv_logML(arma::vec H, arma::vec Theta, arma::vec Theta_star, arma::vec Y, Rcpp::Nullable<int> iI, Rcpp::Nullable<int> iM, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_sv_logML(SEXP HSEXP, SEXP ThetaSEXP, SEXP Theta_starSEXP, SEXP YSEXP, SEXP iISEXP, SEXP iMSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type H(HSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta(ThetaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iI(iISEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iM(iMSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(sv_logML(H, Theta, Theta_star, Y, iI, iM, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
 // asv_mcmc
 Rcpp::List asv_mcmc(arma::vec return_vector, Rcpp::Nullable<double> nSim, Rcpp::Nullable<double> nBurn, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
 RcppExport SEXP _ASV_asv_mcmc(SEXP return_vectorSEXP, SEXP nSimSEXP, SEXP nBurnSEXP, SEXP vHyperSEXP) {
@@ -36,6 +81,51 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type nBurn(nBurnSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
     rcpp_result_gen = Rcpp::wrap(asv_mcmc(return_vector, nSim, nBurn, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asv_posterior
+arma::vec asv_posterior(arma::vec H, arma::vec Theta, arma::vec Theta_star, arma::vec Y, Rcpp::Nullable<int> iM, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_asv_posterior(SEXP HSEXP, SEXP ThetaSEXP, SEXP Theta_starSEXP, SEXP YSEXP, SEXP iMSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type H(HSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta(ThetaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iM(iMSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(asv_posterior(H, Theta, Theta_star, Y, iM, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asv_prior
+double asv_prior(arma::vec Theta_star, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_asv_prior(SEXP Theta_starSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(asv_prior(Theta_star, vHyper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asv_logML
+Rcpp::List asv_logML(arma::vec H, arma::vec Theta, arma::vec Theta_star, arma::vec Y, Rcpp::Nullable<int> iI, Rcpp::Nullable<int> iM, Rcpp::Nullable<Rcpp::NumericVector> vHyper);
+RcppExport SEXP _ASV_asv_logML(SEXP HSEXP, SEXP ThetaSEXP, SEXP Theta_starSEXP, SEXP YSEXP, SEXP iISEXP, SEXP iMSEXP, SEXP vHyperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type H(HSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta(ThetaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Theta_star(Theta_starSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iI(iISEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<int> >::type iM(iMSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type vHyper(vHyperSEXP);
+    rcpp_result_gen = Rcpp::wrap(asv_logML(H, Theta, Theta_star, Y, iI, iM, vHyper));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -104,7 +194,13 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ASV_sv_mcmc", (DL_FUNC) &_ASV_sv_mcmc, 4},
+    {"_ASV_sv_posterior", (DL_FUNC) &_ASV_sv_posterior, 6},
+    {"_ASV_sv_prior", (DL_FUNC) &_ASV_sv_prior, 2},
+    {"_ASV_sv_logML", (DL_FUNC) &_ASV_sv_logML, 7},
     {"_ASV_asv_mcmc", (DL_FUNC) &_ASV_asv_mcmc, 4},
+    {"_ASV_asv_posterior", (DL_FUNC) &_ASV_asv_posterior, 6},
+    {"_ASV_asv_prior", (DL_FUNC) &_ASV_asv_prior, 2},
+    {"_ASV_asv_logML", (DL_FUNC) &_ASV_asv_logML, 7},
     {"_ASV_sv_pf", (DL_FUNC) &_ASV_sv_pf, 5},
     {"_ASV_sv_apf", (DL_FUNC) &_ASV_sv_apf, 5},
     {"_ASV_asv_pf", (DL_FUNC) &_ASV_asv_pf, 6},

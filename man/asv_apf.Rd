@@ -67,7 +67,7 @@ for(i in 1:nobs){
   h   = mu + phi * (h-mu) + eta
   Y   = append(Y, y)
 }
-npart = 5000 
+npart = 1000 
 asv_apf(mu, phi, sigma_eta, rho, Y, npart)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

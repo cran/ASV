@@ -51,6 +51,10 @@ arma::vec sv_sample_theta(arma::vec h, arma::vec theta);
 
 arma::vec sv_sample_h(arma::vec s, arma::vec h, arma::vec theta);
 
+arma::vec sv_sample_theta_pi1(arma::vec h, arma::vec theta, arma::vec theta_star);
+
+double sv_sample_pi2(arma::vec h, arma::vec theta_star);
+
 // [[Rcpp::export]]
 double sv_pf(double mu, double phi, double sigma_eta, arma::vec Y,  int I);
 
@@ -84,6 +88,10 @@ arma::vec asv_sample_theta(arma::vec h, arma::vec theta);
 arma::vec asv_sample_h(arma::vec s, arma::vec h, arma::vec theta);
 
 arma::vec asv_mysample(arma::vec h, int I, arma::vec prob);
+
+arma::vec asv_sample_theta_pi1(arma::vec h, arma::vec theta, arma::vec theta_star);
+
+double asv_sample_pi2(arma::vec h, arma::vec theta_star);
 
 // [[Rcpp::export]]
 double asv_pf(double mu, double phi, double sigma_eta, double rho, arma::vec Y,  int I);
