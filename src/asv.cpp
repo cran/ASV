@@ -289,8 +289,8 @@ double sv_loglikelihood(arma::vec s, arma::vec theta){
   mu_1 = C_1 * ( mu_0/(sigma_0*sigma_0) + arma::sum(F%(1/D)%f) );
 
   double result;
-  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(abs(D)))/2 -
-    log(abs(sigma_0*sigma_0))/2 + log(abs(C_1))/2 -
+  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(arma::abs(D)))/2 -
+    log(fabs(sigma_0*sigma_0))/2 + log(fabs(C_1))/2 -
     ( arma::sum(f%(1/D)%f) + mu_0*(1/(sigma_0*sigma_0))*mu_0 - mu_1*(1/C_1)*mu_1 )/2;
 
   return(result);
@@ -309,7 +309,7 @@ double sv_loglikelihood_theta(arma::vec s, arma::vec theta){
   double result, mu;
   mu = theta[0];
   
-  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(abs(D)))/2 
+  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(arma::abs(D)))/2 
            - ( arma::sum(f%(1/D)%f) - 2 * mu* arma::sum(F%(1/D)%f) 
                + mu * mu *arma::sum(F%(1/D)%F)  )/2;
   
@@ -1290,8 +1290,8 @@ double asv_loglikelihood(arma::vec s, arma::vec theta){
   
   double result;
   // need to convert int T to double T?
-  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(abs(D)))/2 -
-    log(abs(sigma_0*sigma_0))/2 + log(abs(C_1))/2 -
+  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(arma::abs(D)))/2 -
+    log(fabs(sigma_0*sigma_0))/2 + log(fabs(C_1))/2 -
     ( arma::sum(f%(1/D)%f) + mu_0*(1/(sigma_0*sigma_0))*mu_0 - mu_1*(1/C_1)*mu_1 )/2;
   
   return(result);
@@ -1311,7 +1311,7 @@ double asv_loglikelihood_theta(arma::vec s, arma::vec theta){
   mu = theta[0];
   
   // need to convert int T to double T?
-  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(abs(D)))/2 
+  result = -T*log(2*arma::datum::pi)/2 - arma::sum(log(arma::abs(D)))/2 
   - ( arma::sum(f%(1/D)%f) - 2 * mu* arma::sum(F%(1/D)%f) 
   + mu * mu *arma::sum(F%(1/D)%F)  )/2;
   

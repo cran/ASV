@@ -1,4 +1,9 @@
-# ASV 1.0.1
+# ASV 1.1.1
+
+- The function type is modified for 'abs' (arma::abs for vector, and fabs for double)  
+
+---
+# ASV 1.1.0
 
 - The logarithm of the marginal likelihood is computed using Chib and Jeliazkov (2001)
 
