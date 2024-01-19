@@ -1,9 +1,9 @@
-8a5b9a7f8877c4425ccaba56cfe4ba8e *DESCRIPTION
+821f0a5fe27cf355789fe3f459e62468 *DESCRIPTION
 4094812a761e72111b7e4224221eeb1d *NAMESPACE
-9054d4b10987b741fd0f677069f0a53c *NEWS.md
+3b8757ebb38496d72e410171932ca1de *NEWS.md
 4c4d44a3138fd5a3bff3e3489b3207fb *R/RcppExports.R
 58678e5beb4ab8d38e93c9a75470fba4 *R/ReportMCMC.R
-05ccb8081cee16cca188e71e87cc3132 *build/partial.rdb
+0191e7e7b6c68573fecd7a0443170588 *build/partial.rdb
 5430c8ba39d2f0f4c158626548fd46be *man/ASV-package.Rd
 663f693eb656f2b74c8a54850ca15f46 *man/ReportMCMC.Rd
 f7f3c46891e4f81530572f7130fcca0e *man/asv_apf.Rd
@@ -18,8 +18,8 @@ f34427bd892ff8a0812c5caf9760e249 *man/asv_pf.Rd
 1595be9a74c2247129ca055fc105e478 *man/sv_pf.Rd
 cec7859baf394d158ccfc62d33095e4b *man/sv_posterior.Rd
 2d7c273ba7072f81670acf9a49fd185b *man/sv_prior.Rd
-61059660eb073d93e00e8ee054237071 *src/Makevars
-61059660eb073d93e00e8ee054237071 *src/Makevars.win
+5d071be4e6977c1f9babf740cabe5e5f *src/Makevars
+5d071be4e6977c1f9babf740cabe5e5f *src/Makevars.win
 1284dcb9ee9b0eda160db03dcb475fe0 *src/RcppExports.cpp
-8a62b0482772d1bdc261b3ff766e6a47 *src/asv.cpp
+d9a686ae0e800235daacb953d069c831 *src/asv.cpp
 21641fb33d61d1951c39c77e1a1d4414 *src/asv.h

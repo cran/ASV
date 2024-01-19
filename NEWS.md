@@ -1,3 +1,7 @@
+# ASV 1.1.2
+
+- The bug in computing the posterior density is fixed. 
+
 # ASV 1.1.1
 
 - The function type is modified for 'abs' (arma::abs for vector, and fabs for double)  

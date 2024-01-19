@@ -575,10 +575,9 @@ arma::vec sv_sample_theta(arma::vec h, arma::vec theta){
     log_proposal += arma::as_scalar( -0.5*(x_star - xhat).t()*Qinv*(x_star - xhat) );
     log_proposal +=  log(2.0) - log(1-phi_star*phi_star) - 2.0*log(sigma_eta_star); 
     /* Compute acceptance probability: alpha(theta, theta_star|y, h) */
-    Lo   = sv_theta_post_max(xn, h);
+    Lo   = sv_theta_post_max(vartheta, h);
     Ln   = sv_theta_post_max(x_star, h);
-    
-    qo = arma::as_scalar( Lhat + grad.t()*(xn-xhat)     - 0.5*(xn-xhat).t()*Qinv*(xn-xhat));
+    qo = arma::as_scalar( Lhat + grad.t()*(vartheta-xhat) - 0.5*(vartheta-xhat).t()*Qinv*(vartheta-xhat));
     qn = arma::as_scalar( Lhat + grad.t()*(x_star-xhat) - 0.5*(x_star-xhat).t()*Qinv*(x_star-xhat));
     
     double prob_acc = exp( Ln - Lo + qo - qn);
