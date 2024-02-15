@@ -330,7 +330,7 @@ double sv_theta_post_max(arma::vec x, arma::vec h){
   arma::vec theta = arma::zeros(3);
   theta[0] = mu;
   theta[1] = phi;
-  theta[2] = sigma_eta;
+  theta[2] = sigma_eta; // = (1/2)*log(sigma_eta^2)
 
   //*---Compute Log Prior density---*/
   double log_prior_mu, log_prior_phi, log_prior_sigma_eta;
@@ -358,7 +358,7 @@ double sv_theta_post_max(arma::vec x, arma::vec h){
   }
 
   /*---Compute Jacobian---*/
-  double jacobian = phi_ + sigma_eta_ - 2*log(exp(phi_)+1);
+  double jacobian = phi_ + log(2.0) + 2*sigma_eta_ + log(2.0)- 2*log(exp(phi_)+1);
   /*---Compute Log Posterior density---*/
   double result = lf + log_prior_phi + log_prior_sigma_eta + log_prior_mu + jacobian;
   return(result);
@@ -573,7 +573,7 @@ arma::vec sv_sample_theta(arma::vec h, arma::vec theta){
     double log_proposal;
     log_proposal  = -3.0*0.5*log(2.0*arma::datum::pi) -0.5*log(arma::det(Q));
     log_proposal += arma::as_scalar( -0.5*(x_star - xhat).t()*Qinv*(x_star - xhat) );
-    log_proposal +=  log(2.0) - log(1-phi_star*phi_star) - 2.0*log(sigma_eta_star); 
+    log_proposal += - log(1-phi_star*phi_star) - 2.0*log(sigma_eta_star); 
     /* Compute acceptance probability: alpha(theta, theta_star|y, h) */
     Lo   = sv_theta_post_max(vartheta, h);
     Ln   = sv_theta_post_max(x_star, h);
@@ -1325,7 +1325,7 @@ double asv_theta_post_max(arma::vec x, arma::vec h){
   mu         = x[0];
   phi_       = x[1];
   phi        = (exp(phi_)-1) / (exp(phi_)+1);
-  sigma_eta_ = x[2];
+  sigma_eta_ = x[2]; // = (1/2)*log(sigma_eta^2)
   sigma_eta  = exp(sigma_eta_);
   rho_       = x[3];
   rho        = (exp(rho_)-1) / (exp(rho_)+1);
@@ -1361,7 +1361,7 @@ double asv_theta_post_max(arma::vec x, arma::vec h){
   }
   
   /*---Compute Jacobian---*/
-  double jacobian = phi_ + sigma_eta_ + rho_ + 2*log(2)
+  double jacobian = phi_ + log(2) + 2*sigma_eta_ + rho_ + 2*log(2)
     - 2*log(exp(phi_)+1) - 2*log(exp(rho_)+1);
   
   /*---Compute Log Posterior density---*/
@@ -1589,12 +1589,12 @@ arma::vec asv_sample_theta_pi1(arma::vec h, arma::vec theta, arma::vec theta_sta
   double log_proposal;
   log_proposal  = -4.0*0.5*log(2.0*arma::datum::pi) -0.5*log(arma::det(Q));
   log_proposal += arma::as_scalar( -0.5*(x_star - xhat).t()*Qinv*(x_star - xhat) );
-  log_proposal +=  log(4.0) - log(1-phi_star*phi_star) - 2.0*log(sigma_eta_star) - log(1-rho_star*rho_star); 
+  log_proposal += log(2.0) - log(1-phi_star*phi_star) - 2.0*log(sigma_eta_star) - log(1-rho_star*rho_star); 
   /* Compute acceptance probability: alpha(theta, theta_star|y, h) */
-  Lo   = asv_theta_post_max(xn, h);
+  Lo   = asv_theta_post_max(vartheta, h);
   Ln   = asv_theta_post_max(x_star, h);
   
-  qo = arma::as_scalar( Lhat + grad.t()*(xn-xhat)     - 0.5*(xn-xhat).t()*Qinv*(xn-xhat));
+  qo = arma::as_scalar( Lhat + grad.t()*(vartheta-xhat)   - 0.5*(vartheta-xhat).t()*Qinv*(vartheta-xhat));
   qn = arma::as_scalar( Lhat + grad.t()*(x_star-xhat) - 0.5*(x_star-xhat).t()*Qinv*(x_star-xhat));
   
   double prob_acc = exp( Ln - Lo + qo - qn);
@@ -1752,20 +1752,20 @@ double asv_pf(double mu, double phi, double sigma_eta, double rho, arma::vec Y, 
   
   int T   = Y.n_elem; // # of observations
   arma::vec  ws = arma::zeros(I);
-  arma::vec  Ws = arma::zeros(I);
+  //  arma::vec  Ws = arma::zeros(I);
   arma::vec  w_means = arma::zeros(T);
-  arma::vec  W_means = arma::zeros(T);
+  //  arma::vec  W_means = arma::zeros(T);
 
   /*---t=0---*/
   arma::vec h_0 = Rcpp::as<arma::vec>(Rcpp::rnorm(I, mu, sqrt(sigma_eta*sigma_eta/(1-phi*phi))));
   
   for(int i = 0; i < I; i++){
     ws[i] = R::dnorm(Y[0], 0, exp(h_0[i]/2), false);
-    Ws[i] = R::pnorm(Y[0], 0, exp(h_0[i]/2), true, false);
+//    Ws[i] = R::pnorm(Y[0], 0, exp(h_0[i]/2), true, false);
   }
 
   w_means[0] = arma::mean(ws);
-  W_means[0] = arma::mean(Ws);
+//  W_means[0] = arma::mean(Ws);
   arma::vec f_hats = ws / arma::sum(ws);
   arma::vec h_ts = h_0;
 
@@ -1778,11 +1778,11 @@ double asv_pf(double mu, double phi, double sigma_eta, double rho, arma::vec Y, 
     + sqrt(1-rho*rho)*sigma_eta*(Rcpp::as<arma::vec>(Rcpp::rnorm(I, 0, 1)));
     for(int i = 0; i < I; i++){
       ws[i]  = R::dnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), false)*f_hats[i];
-      Ws[i]  = R::pnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), true, false)*f_hats[i];
+    //Ws[i]  = R::pnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), true, false)*f_hats[i];
     }
     
     w_means[t+1] = arma::sum(ws);
-    W_means[t+1] = arma::sum(Ws);
+    //W_means[t+1] = arma::sum(Ws);
     f_hats = ws / arma::sum(ws);
     h_ts = h_t_plus_1;
 
@@ -1799,19 +1799,19 @@ double asv_apf(double mu, double phi, double sigma_eta, double rho, arma::vec Y,
   arma::vec  ind     = arma::zeros(I);
   arma::vec  q       = arma::zeros(I);
   arma::vec  ws      = arma::zeros(I);
-  arma::vec  Ws      = arma::zeros(I);
+  //  arma::vec  Ws      = arma::zeros(I);
   arma::vec  w_means = arma::zeros(T);
-  arma::vec  W_means = arma::zeros(T);
+  //  arma::vec  W_means = arma::zeros(T);
   
   /*---t=0---*/
   arma::vec h_0 = Rcpp::as<arma::vec>(Rcpp::rnorm(I, mu, sqrt(sigma_eta*sigma_eta/(1-phi*phi))));
   
   for(i = 0; i < I; i++){
     ws[i] = R::dnorm(Y[0], 0, exp(h_0[i]/2), false);
-    Ws[i] = R::pnorm(Y[0], 0, exp(h_0[i]/2), true, false);
+  //    Ws[i] = R::pnorm(Y[0], 0, exp(h_0[i]/2), true, false);
   }
   w_means[0] = arma::mean(ws);
-  W_means[0] = arma::mean(Ws);
+  //  W_means[0] = arma::mean(Ws);
   arma::vec f_hats = ws / arma::sum(ws);
 
   arma::vec h_ts = h_0;
@@ -1838,10 +1838,11 @@ double asv_apf(double mu, double phi, double sigma_eta, double rho, arma::vec Y,
       + R::rnorm(0, sqrt(1-rho*rho)*sigma_eta);
       
       ws[i]  = R::dnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), false) *f_hats[i]/ q[i];
-      Ws[i]  = R::pnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), true, false)*f_hats[i] / q[i];
+
+    //  Ws[i]  = R::pnorm(Y[t+1], 0, exp(h_t_plus_1[i]/2), true, false)*f_hats[i] / q[i];
     }
     w_means[t+1] = arma::mean(ws);
-    W_means[t+1] = arma::mean(Ws);
+    //  W_means[t+1] = arma::mean(Ws);
     f_hats       = ws / arma::sum(ws);
 
     h_ts = h_t_plus_1;

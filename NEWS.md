@@ -1,3 +1,7 @@
+# ASV 1.1.4
+
+- The bug in computing the posterior density is fixed. 
+
 # ASV 1.1.2
 
 - The bug in computing the posterior density is fixed. 
